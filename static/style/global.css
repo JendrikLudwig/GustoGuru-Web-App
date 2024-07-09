@@ -1,0 +1,436 @@
+/* Grundlegendes Styling für die Suchleiste und Vorschläge */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+
+    background-color: #0E1217;
+    font-family: "Montserrat", sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    --sb-track-color: #1C1F26;
+    --sb-thumb-color: #ADCFA8;
+    --sb-size: 7px;
+}
+
+  
+body::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 3px;
+
+}
+
+aside {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    background-color: #1C1F26;
+    height: 100vh;
+    width: 15rem;
+}
+
+#history {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 7rem);
+    max-height: calc(100% - 7rem);
+    color: white;
+    padding: 2rem 1rem 0 0.5rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    --sb-track-color: #1C1F26;
+    --sb-thumb-color: #ADCFA8;
+    --sb-size: 7px;
+}
+
+  
+#history::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+#history::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 3px;
+}
+
+#history::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 3px;
+
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    #history {
+        scrollbar-color: var(--sb-thumb-color)
+                        var(--sb-track-color);
+    }
+}
+
+.history_title {
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-left: 0.5rem;
+    text-decoration: underline;
+}
+
+#history_entries {
+    display: flex;
+    flex-direction: column;
+    
+    width: calc(17.5rem - 4rem);
+    
+
+}
+
+#history_entries p {
+    position: relative;
+    margin: 0.25rem 0;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;     /* Verhindert Zeilenumbrüche */
+    overflow: hidden;        /* Versteckt den überfließenden Text */
+    font-size: 0.9rem;
+}
+
+.no_history {
+    margin: 0.25rem 0;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+#history_entries p:hover {
+    background-color: #3B4250;
+}
+
+#history_entries p:not(.active):after {
+    position: absolute;
+    content:"";
+    height:100%;
+    width: calc(17.5rem - 4.5rem);
+    left: 1rem;
+    background: linear-gradient(to right, rgba(255,0,0,0) 60%,#1C1F26 95%);
+}
+
+#history_entries p:hover:after {
+    position: absolute;
+    content:"";
+    height:100%;
+    width: calc(17.5rem - 4.5rem);
+    left: 1rem;
+    background: linear-gradient(to right, rgba(255,0,0,0) 60%,#3B4250 95%);
+}
+
+p.active {
+    position: relative;
+    background-color: #3B4250;
+}
+
+p.active:after {
+    position: absolute;
+    content:"";
+    height:100%;
+    width: calc(17.5rem - 4.5rem);
+    left: 1rem;
+    background: linear-gradient(to right, rgba(255,0,0,0) 60%,#3B4250 95%);
+}
+
+/* unvisited link */
+#history_entries a:link, #history_entries a:visited {
+    color: white;
+    text-decoration: none;
+    background: none;
+    width: 100%;
+}
+
+#history_entries p {
+    padding: 0.25rem 0.5rem;
+}
+
+
+/* selected link */
+#history_entries a:active p {
+    color: #ADCFA8;
+}
+
+#new_btn {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    align-self: flex-end;
+    width: calc(15rem - 2rem);
+    height: 3rem;
+    margin: 1rem;
+    bottom: 0;
+    left: 0;
+    background-color:#ADCFA8;
+    border-radius: 100px;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 50px -1px rgba(0,0,0,0.37); 
+    box-shadow: 0px 0px 50px -1px rgba(0,0,0,0.37);
+    font-weight: bold;
+}
+
+#new_btn:link, #new_btn:visited {
+    color: #0E1217;
+    text-decoration: none;
+}
+
+#new_btn:hover {
+    transform: scale(0.9);
+    transition-duration: 0.1s;
+    cursor: pointer;
+    filter: brightness(1.15);
+}
+
+main {
+    position: absolute;
+    margin: 0;
+    height: 100vh;
+    width: calc(100vw - 17.5rem);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#logo {
+    height: 14rem;
+    margin: 4rem;
+}
+
+#input_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40rem;
+    margin: calc(50vh - 23.5rem);
+}
+
+
+#submit_btn {
+    border: none;
+    background: none;
+    background-image: url("/img/submit.png");
+    height: 2.5rem;
+    width: 12rem;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0.25rem;
+}
+
+#submit_btn:hover {
+    transition-duration: 0.1s;
+    cursor: pointer;
+    filter: brightness(1.15);
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    width: 40rem;
+    height: 3rem;
+    background-color: #1C1F26;
+    border-radius: 10rem;   
+}
+
+.search-container.active {
+    border: 1px solid  #ffffff52;
+    height: calc(3rem - 2px);
+
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    font-family: "Montserrat", sans-serif;
+    margin-left: 1.5rem;
+    caret-color: white;
+    color: white;
+}
+#searchInput:focus{
+    outline: none;
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 1.5rem;
+    width: 25rem;
+    background-color: #1C1F26;
+    z-index: 1000;
+    color: white;
+}
+.suggestion {
+    padding: 8px;
+    cursor: pointer;
+}
+.suggestion:hover {
+    background-color: #3A3E49;
+}
+
+.tag {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ADCFA8;
+    border-radius: 10rem;
+    padding: 0.25rem 0.5rem;
+    margin: 0.15rem;
+}
+
+#tag_container {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    margin: 1rem 0 0 0;
+    width: 100%;
+    color: #0E1217;
+}
+
+.remove_tag {
+    background: none;
+    background-image: url("/img/close.png");
+    height: 1rem;
+    width: 1rem;
+    border: none;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 0.35rem;
+    cursor: pointer;
+    background-size: 80%;
+    opacity: 0.5;
+}
+
+
+/* Recipe CSS*/
+
+#recipe_container {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    color: white;
+    padding: 10rem 0;
+    
+}
+
+#loader {
+    animation: spin 2s linear infinite;
+    height: 3rem;
+}
+
+.wait_text {
+    opacity: 0.5;
+}
+
+#loader_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 3rem 0 0 0;
+}
+
+.rec_box {
+    border: solid 1px #ADCFA8;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+
+.rec_box li {
+    margin: 0.5rem 0;
+}
+
+#gude {
+    transform: scale(0.75);
+}
+#llama_switch_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    font-weight: 600;
+    font-size: 0.8rem;
+    user-select: none;  /* Moderne Browser */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+
+
+#toggle_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 1.5rem;
+    width: 3rem;
+    background-color: #1C1F26;
+    border-radius: 100rem;
+    padding: .1rem;
+    cursor: pointer;
+    margin: 1rem
+}
+
+#toggler {
+    display: flex;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 100%;
+}
+
+.tgl_active {
+    background-color: #ADCFA8;
+    color: #ADCFA8;
+}
+
+.tgl_inactive {
+    background-color: #2e3036;
+    color: #3B4250;
+}
+
+.tgl_text_active {
+    color: #ADCFA8;
+}
+
+.tgl_text_inactive {
+    color: #3B4250;
+}
+
+.con_active {
+    justify-content: flex-end;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

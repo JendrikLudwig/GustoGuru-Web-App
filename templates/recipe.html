@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GustoGuru - Dein Rezept</title>
+        <link rel="stylesheet" type="text/css" href="/style/global.css">
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+        <script src="/javascript/script.js"></script>
+        <script src="/javascript/awaitData.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    </head>
+    
+    <body onload="setupRecipePage(); main()">
+        <aside>
+            <div id="history">
+                <p class="history_title">Vergangene Rezepte</p>
+                <div id="history_entries">
+                    
+                </div>
+                
+            </div>
+            <a href="/" id="new_btn">
+                Neues Rezept
+            </a>
+        </aside>
+        <main>
+            <div id="recipe_container">
+                <h1 class="recipe_titel">Dein Rezept</h1>
+                <p>Die folgende Zutaten hat der GustoGuru berücksichtigt:</p>
+                <div id="tag_container">
+                    {% for zutat in elements["zutaten"]%}
+                        <div class="tag">{{zutat}}</div>
+                    {% endfor %}
+                </div>
+                    {% if elements["anleitung"] == {} %}
+                        <div id="loader_container">
+                            <p class="wait_text">GustoGuru tüfftelt gerade noch an deinem Rezept, bitte gib ihm noch einen Augenblick...</p>
+                            <img src="/img/loader.png" id="loader">
+                        </div>
+
+                    {% else %}
+                        <p><em>Der GustoGuru hat sich deine Zutaten geschnappt und dir ein köstliches Rezept gezaubert! Viel Spaß beim Nachkochen!</em></p>
+                        <div id="ki_box" class="rec_box">
+                            {{anleitung|safe}}
+                        </div>
+                        <p><em>GustoGuru hat noch ein wenig weiter gegrübelt und dir ein Rezept gesucht, welches du mit weiteren Zutaten kochen könntest.</em></p>
+                        <div id="ck_box" class="rec_box"></div>
+                        
+                        <img id="gude" src="/img/gude.png" alt="">
+                    {% endif %}
+            </div>
+        </div>    
+        </main>  
+         <script>
+            const ki_text = document.getElementById("ki_box").innerText
+            if(ki_text.includes('"response":')) {
+                const json = JSON.parse(ki_text)["response"]
+                console.log(String(json).replaceAll(",",", "))
+                document.getElementById("ki_box").innerText = json.replaceAll(",",", ")
+            }
+
+            if(document.getElementById("ck_box") != null) {
+                placeCkData(window.location.href.split("/p/")[1]) 
+            }
+
+            function timeout(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            async function placeCkData(id) {
+
+                const res = await fetch("/d/"+id)
+                const json = await res.json()
+                const data = JSON.parse(json[1])
+                
+                const obj = JSON.parse(data.anleitungCk)
+
+
+                const ck = {
+                    name: obj.name[Object.keys(obj.name)[0]],
+                    ingredients: obj.ingredients[Object.keys(obj.ingredients)[0]],
+                    instructions: obj.instructions[Object.keys(obj.instructions)[0]]
+
+                }
+
+                const toHtml = (d) => {
+                    return `
+                        <h2>${d.name}</h2>
+                        <p>Zutaten:</p>
+                        <p>${d.ingredients.map(x=>{return x.name+" "+x.amount}).join(", ")}</p>
+                        <h3>Zubereitung</h3>
+                        <ol>
+                            ${d.instructions.split(". ").map(x=>{return`<li>${x}.</li>`}).join("")}                        
+                        </ol>
+
+                    `
+                }
+
+
+
+                console.log(toHtml(ck))
+                console.log(obj)
+                document.getElementById("ck_box").innerHTML = toHtml(ck)
+                
+            }
+
+
+         </script>
+    </body>
+</html>

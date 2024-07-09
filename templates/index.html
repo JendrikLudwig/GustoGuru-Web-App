@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GustoGuru - Geschmack auf Knopfdruck</title>
+        <link rel="stylesheet" type="text/css" href="/style/global.css">
+        <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+
+        <script src="/javascript/script.js"></script>
+    </head>
+    
+    <body onload="setupPage()">
+        <aside>
+            <div id="history">
+                <p class="history_title">Vergangene Rezepte</p>
+                <div id="history_entries">
+                    
+                </div>
+                
+            </div>
+            <a href="/" id="new_btn">
+                Neues Rezept
+            </a>
+        </aside>
+        <main>
+            <div id="input_container">
+            <img id="logo" src="/img/logo.png" alt="logo">
+            <div id="llama_switch_container" class="tgl_text_inactive">
+                Llama3 inaktiv
+                <div id="toggle_container">
+                    <div id="toggler" class="tgl_inactive"></div>
+                </div>
+            </div>
+            <div class="search-container">
+                
+                    
+                
+                <input type="text" class="search-input" id="searchInput" placeholder="Füge deine vorhandenen Zutaten hinzu...">
+                <button id="submit_btn" onclick="generateRecipe()"></button>
+                <div class="suggestions" id="suggestionsContainer"></div>
+            </div>
+            <div class="tags" id="tag_container">
+            
+            </div>
+        </div>    
+        </main>  
+          
+    </body>
+</html>
