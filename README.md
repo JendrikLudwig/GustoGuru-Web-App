@@ -7,7 +7,7 @@ Sie implementiert eine Nutzeranwendung, in Form einer Flask API. Die Anwendung e
 
 
 ## WICHTIG
-Zur Nutzung der Anwendung ist das herunterladen der Rezeptdaten erforderlich. Hierfür einfach die [Daten herunterladen]("https://1drv.ms/f/s!AkZiqagXI1TMm8MBBKWjgbtWf5QbOA?e=q3k3ix") und in einen "data"-Ordner auf Root-Ebene ziehen. 
+Zur Nutzung der Anwendung ist das herunterladen der Rezeptdaten erforderlich. Hierfür einfach die [Daten herunterladen](https://1drv.ms/f/s!AkZiqagXI1TMm8MBBKWjgbtWf5QbOA?e=q3k3ix) und in einen "data"-Ordner auf Root-Ebene ziehen. 
 ## Ordnerstruktur
 
 ```
