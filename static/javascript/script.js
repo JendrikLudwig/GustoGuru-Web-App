@@ -136,7 +136,7 @@ async function fetchSuggestions(query) {
 async function exampleFetchSuggestions(query) {
     const res = await fetch("/rec/"+query)
     const data = await res.json()
-    return data.words.filter(suggestion => suggestion.toLowerCase().includes(query.toLowerCase()));
+    return data.words
 }
 
 function displaySuggestions(suggestions) {
